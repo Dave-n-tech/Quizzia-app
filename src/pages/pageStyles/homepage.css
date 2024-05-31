@@ -1,0 +1,30 @@
+
+.hero{
+    /* height: calc(100% - 60px); */
+    display: flex;
+    align-items: center;
+}
+
+.hero-left{
+    flex: 0.5;
+}
+
+.hero-right{
+    flex: 0.5;
+}
+
+.heading{
+    color: var(--purple);
+    font-size: 60px;
+    margin: 0;
+}
+
+.description{
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+}
+
+.hero-right img{
+    width: 100%;
+    height: 100%;
+}

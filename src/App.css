@@ -1,0 +1,51 @@
+*{
+  box-sizing: border-box;
+}
+
+:root{
+  --purple: #8646B0;
+  --dark-purple-background: #5f317d;
+  --light-purple-background: #FAE8EB;
+}
+
+body{
+  background-color: var(--light-purple-background);
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+a, p, button{
+  font-family: "Inter";
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+h1{
+  font-size: 32px;
+  font-family: "Poetsen One", sans-serif;
+  color: var(--purple);
+}
+
+.play-button{
+  background-color: var(--purple);
+  width: 140px;
+  height:50px;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.button{
+  background-color: var(--purple);
+  color: white;
+  cursor: pointer;
+  border: none;
+}

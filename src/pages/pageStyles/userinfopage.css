@@ -1,0 +1,109 @@
+
+.name-section{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.name-input input{
+    width: 300px;
+    height: 50px;
+    border: 2px solid var(--purple);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.name-input .enter{
+    height: 50px;
+    width: 120px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Inter";
+}
+
+.difficulty-input h1{
+    text-align: left;
+}
+
+.difficulty-select{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.difficulty-button{
+    width: 150px;
+    height: 55px;
+    border: 3px solid var(--purple);
+    background-color: transparent;
+    color: var(--purple);
+    font-size: 20px;
+    font-family: "inter";
+    border-radius: 5px;
+}
+
+.difficulty-button:hover{
+    background-color: var(--purple);
+    color: var(--light-purple-background);
+}
+
+.difficulty-active{
+    background-color: var(--dark-purple-background);
+    color: var(--light-purple-background);
+}
+
+
+.categories{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: scroll;
+}
+
+.category-btn{
+    width: 200px;
+    height: 60px;
+    font-size: 16px;
+}
+
+.category-section{
+    position: relative;
+}
+
+.start{
+    width: 95%;
+    background-color: var(--light-purple-background);
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: end;
+    gap: 10px;
+    margin-top: 30px;
+    /* position: absolute;
+    bottom: 30px; */
+}
+
+.start-btn{
+    width: 200px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+.category-btn:hover{
+    scale: 1.03;
+}
+
+.btn-active{
+    background-color: var(--dark-purple-background);
+    color: var(--light-purple-background);
+    scale: 1.03;
+}
+
+.inactive{
+    opacity: 0.5;
+}
