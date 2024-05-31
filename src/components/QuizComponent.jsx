@@ -25,15 +25,18 @@ function shuffle(array) {
 const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
   const [options, setOptions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [correctOption, setCorrectOption] = useState("");
-  const [score, setScore] = useState(0);
-
+  const [userAnswers, setUserAnswers] = useState([]);
   const { user, setUserScore } = useContext(userContext);
+
+  const letters = ['A.', 'B.', 'C.', 'D.']
+  const currentQuestionObject = questions[index];
+  const correctOption = currentQuestionObject?.correct_answer;
+
+  console.log(`correct answer = ${correctOption}`)
 
   useEffect(() => {
     if (questions && questions.length > 0) {
-      let currentQuestionObject = questions[index];
+      
       if (currentQuestionObject) {
         // Decode the question text
         const parser = new DOMParser();
@@ -49,7 +52,6 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
           currentQuestionObject.correct_answer,
         ];
 
-        setCorrectOption(currentQuestionObject.correct_answer);
         setOptions(shuffle(allOptions));
         console.log(
           currentQuestionObject.question,
@@ -58,52 +60,57 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
       }
     }
 
-    setSelectedOption("");
   }, [questions, index]);
 
-  // const incrementScore = () => {
-  //   console.log(selectedOption)
-  //   if(selectedOption === correctOption){
-  //       setScore(score += 1)
-  //   }
-
-  //   console.log(score)
-  // }
 
   // // fix problem here!!!!!
-  const handleOptionClick = (e) => {
-    let value = e.target.textContent;
-    console.log(value.slice(3));
-    setSelectedOption(value.slice(3));
+  const handleOptionClick = (option) => {
+    // let value = e.target.textContent;
+    // let option = value.slice(3);
+    // setSelectedOption(option)
+    console.log(`selected option = ${option}`);
 
-    // console.log(value.slice(3))
+    const newUserAnswers = [...userAnswers];
+    newUserAnswers[index] = option;
+    setUserAnswers(newUserAnswers)
+
+    returnUserAnswers()
   };
 
-  // Algorithm to check track user score
-  /*
-    store user selected option
-    when next button is clicked:
-      if user selected option == correctAnswer:
-        increment score
-  */
+  const returnUserAnswers = () => {
+    console.log(userAnswers)
+  }
+
+  const calculateScore = () => {
+    let score = 0
+    for (let i = 0; i < questions.length; i++) {
+      if (userAnswers[i] === questions[i].correct_answer) {
+        score++;
+      }
+    }
+    return score;
+  }
+
+  const handleSubmitQuiz = () => {
+    const score = calculateScore();
+    setUserScore(score)
+    
+    alert(`Welldone ${user.name}!!! Your score is ${score}/${questions.length}`);
+  };
+
+
 
   return (
     <>
       <p className="question white"> {currentQuestion}</p>
       <div className="options">
-        <p className="option white" onClick={handleOptionClick}>
-          A. {options[0]}
+        {options.map((option, i) => (
+          <p key={i} className={`option white ${userAnswers[index] === option ? `selected` : ''}`} onClick={() => handleOptionClick(option)}>
+          {letters[i]} {option}
         </p>
-        <p className="option white" onClick={handleOptionClick}>
-          B. {options[1]}
-        </p>
-        <p className="option white" onClick={handleOptionClick}>
-          C. {options[2]}
-        </p>
-        <p className="option white" onClick={handleOptionClick}>
-          D. {options[3]}
-        </p>
+        ))}
       </div>
+
       <div className="nav-buttons">
         <button
           className={`button ${index === 0 ? "hidden" : ""}`}
@@ -114,6 +121,7 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
         </button>
         <button
           className={`button ${index !== questions.length - 1 ? "hidden" : ""}`}
+          onClick={handleSubmitQuiz}
         >
           {" "}
           Submit{" "}

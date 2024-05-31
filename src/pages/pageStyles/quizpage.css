@@ -34,6 +34,13 @@
     border-radius: 10px;
 }
 
+.option:hover{
+    background-color: var(--light-purple-background);
+    border: 3px solid var(--purple);
+}
+
+
+
 .nav-buttons{
     display: flex;
     justify-content: space-between;
@@ -47,4 +54,9 @@
 
 .hidden{
     visibility: hidden;
+}
+
+.selected{
+    background-color: #954fc3;
+    color: black;
 }
