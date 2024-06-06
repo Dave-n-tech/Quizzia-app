@@ -14,7 +14,7 @@ export default function Homepage() {
         <PlayButton />
       </section>
       <section className="hero-right">
-        <img src={heroImage} alt="" />
+        <img src={heroImage} alt="" className="hero-image"/>
       </section>
     </main>
   );

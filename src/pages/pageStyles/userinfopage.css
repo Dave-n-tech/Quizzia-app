@@ -1,4 +1,9 @@
 
+.quiz-info-container{
+    width: 90%;
+    margin: 0 auto;
+}
+
 .name-section{
     width: 100%;
     display: flex;
@@ -61,7 +66,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    overflow-y: scroll;
 }
 
 .category-btn{

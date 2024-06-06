@@ -1,7 +1,30 @@
-import React from 'react'
+import React from "react";
+import { useContext } from "react";
+import { userContext } from "../context/UserState";
+import { quizContext } from "../context/QuizState";
+import ribbon from "../assets/ribbons.png";
+import "./pageStyles/resultpage.css";
 
 export default function ResultPage() {
+  const { user } = useContext(userContext);
+  const { questions } = useContext(quizContext);
+
   return (
-    <div>ResultPage</div>
-  )
+    <main className="container">
+      <section className="result-display-container">
+        <h1>Congratulations {user.name}!</h1>
+        <img src={ribbon} alt="ribbon icon" className="congrats-img" />
+        <div className="score">
+          <p>You scored:</p>
+          <h2>
+            {user.score}/{questions.length}
+          </h2>
+        </div>
+        <div className="buttons">
+          <button className="button">Restart</button>
+          <button className="button">View Answers</button>
+        </div>
+      </section>
+    </main>
+  );
 }

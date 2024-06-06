@@ -17,7 +17,7 @@ a{
   text-decoration: none;
 }
 
-a, p, button{
+a, p, button, h2{
   font-family: "Inter";
 }
 
@@ -28,7 +28,7 @@ a, p, button{
 }
 
 h1{
-  font-size: 32px;
+  font-size: 30px;
   font-family: "Poetsen One", sans-serif;
   color: var(--purple);
 }
@@ -48,4 +48,9 @@ h1{
   color: white;
   cursor: pointer;
   border: none;
+}
+
+.container{
+  width: 100%;
+  margin-top: 10px;
 }

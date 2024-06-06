@@ -58,7 +58,7 @@ export default function UserInfoPage() {
   //user.name ? user.name : localStorage.getItem("username")
 
   return (
-    <main>
+    <main className="quiz-info-container">
       <h1>Hello {user.name}</h1>
       <section className="name-section">
         <form className="name-input">

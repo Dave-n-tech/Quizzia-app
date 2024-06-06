@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/UserState";
+import { useNavigate } from "react-router-dom";
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -27,12 +28,13 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [userAnswers, setUserAnswers] = useState([]);
   const { user, setUserScore } = useContext(userContext);
+  const navigate = useNavigate()
 
+  //useful constants
   const letters = ['A.', 'B.', 'C.', 'D.']
   const currentQuestionObject = questions[index];
   const correctOption = currentQuestionObject?.correct_answer;
 
-  console.log(`correct answer = ${correctOption}`)
 
   useEffect(() => {
     if (questions && questions.length > 0) {
@@ -62,24 +64,11 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
 
   }, [questions, index]);
 
-
-  // // fix problem here!!!!!
   const handleOptionClick = (option) => {
-    // let value = e.target.textContent;
-    // let option = value.slice(3);
-    // setSelectedOption(option)
-    console.log(`selected option = ${option}`);
-
     const newUserAnswers = [...userAnswers];
     newUserAnswers[index] = option;
     setUserAnswers(newUserAnswers)
-
-    returnUserAnswers()
   };
-
-  const returnUserAnswers = () => {
-    console.log(userAnswers)
-  }
 
   const calculateScore = () => {
     let score = 0
@@ -94,8 +83,7 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
   const handleSubmitQuiz = () => {
     const score = calculateScore();
     setUserScore(score)
-    
-    alert(`Welldone ${user.name}!!! Your score is ${score}/${questions.length}`);
+    navigate("/result")
   };
 
 

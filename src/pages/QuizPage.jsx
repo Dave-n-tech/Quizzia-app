@@ -30,17 +30,14 @@ export default function QuizPage() {
   }
 
 
-
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <main className="container">
-      {/* <h1> Hello {user.name ? user.name : localStorage.getItem("username")}</h1> */}
       <section className="question-container">
-        <h1>Category: {questionGroup?.category}</h1>
-        <h1>Question {index + 1}</h1>
+        <h2>Category: {questionGroup?.category}</h2>
+        <h2>Question {index + 1}</h2>
         <QuizComponent questions={questions} index={index} onNextClick = {handleNextClick} onPrevClick = {handlePrevClick}/>
       </section>
     </main>
