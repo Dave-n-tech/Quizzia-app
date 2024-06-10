@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/UserState";
 import { useNavigate } from "react-router-dom";
+import { parseString, quizContext } from "../context/QuizState";
 
-function shuffle(array) {
+export const letters = ["A.", "B.", "C.", "D."];
+
+export function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
 
@@ -26,28 +29,19 @@ function shuffle(array) {
 const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
   const [options, setOptions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [userAnswers, setUserAnswers] = useState([]);
-  const { user, setUserScore } = useContext(userContext);
-  const navigate = useNavigate()
+  const { setUserScore } = useContext(userContext);
+  const { userAnswers, setUserAnswers } = useContext(quizContext);
+  const navigate = useNavigate();
 
   //useful constants
-  const letters = ['A.', 'B.', 'C.', 'D.']
   const currentQuestionObject = questions[index];
-  const correctOption = currentQuestionObject?.correct_answer;
-
 
   useEffect(() => {
     if (questions && questions.length > 0) {
-      
       if (currentQuestionObject) {
-        // Decode the question text
-        const parser = new DOMParser();
-        const decodedString = parser.parseFromString(
-          `<!doctype html><body>${currentQuestionObject.question}`,
-          "text/html"
-        ).body.textContent;
+        const formattedQuestion = parseString(currentQuestionObject.question);
 
-        setCurrentQuestion(decodedString);
+        setCurrentQuestion(formattedQuestion);
 
         const allOptions = [
           ...currentQuestionObject.incorrect_answers,
@@ -61,41 +55,62 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
         );
       }
     }
-
   }, [questions, index]);
 
-  const handleOptionClick = (option) => {
+  // const handleOptionClick = (option) => {
+  //   const newUserAnswers = [...userAnswers];
+  //   newUserAnswers[index] = option;
+  //   setUserAnswers(newUserAnswers);
+  //   console.log("selected answer:", newUserAnswers);
+  // };
+
+  const handleOptionChange = (e) => {
     const newUserAnswers = [...userAnswers];
-    newUserAnswers[index] = option;
-    setUserAnswers(newUserAnswers)
+    newUserAnswers[index] = e.target.value;
+    setUserAnswers(newUserAnswers);
+    console.log("selected answer:", newUserAnswers);
   };
 
   const calculateScore = () => {
-    let score = 0
+    let score = 0;
     for (let i = 0; i < questions.length; i++) {
       if (userAnswers[i] === questions[i].correct_answer) {
         score++;
       }
     }
     return score;
-  }
+  };
 
   const handleSubmitQuiz = () => {
     const score = calculateScore();
-    setUserScore(score)
-    navigate("/result")
+    setUserScore(score);
+    localStorage.setItem("user-answers", JSON.stringify(userAnswers))
+    navigate("/result");
   };
 
+  // console.log(userAnswers);
+  // console.log(options);
 
+  // className={`option white ${
+  //   userAnswers[index] === option ? `selected` : ""
+  // }`}
+  // onClick={() => handleOptionClick(option)}
 
   return (
     <>
       <p className="question white"> {currentQuestion}</p>
       <div className="options">
         {options.map((option, i) => (
-          <p key={i} className={`option white ${userAnswers[index] === option ? `selected` : ''}`} onClick={() => handleOptionClick(option)}>
-          {letters[i]} {option}
-        </p>
+          <label key={i} className={`option white`}>
+            <input
+              type="radio"
+              name="quiz-option"
+              value={option}
+              checked={userAnswers[index] === option}
+              onChange={handleOptionChange}
+            />
+            {letters[i]} {parseString(option)}
+          </label>
         ))}
       </div>
 
@@ -104,22 +119,19 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
           className={`button ${index === 0 ? "hidden" : ""}`}
           onClick={onPrevClick}
         >
-          {" "}
-          Prev{" "}
+          Prev
         </button>
         <button
           className={`button ${index !== questions.length - 1 ? "hidden" : ""}`}
           onClick={handleSubmitQuiz}
         >
-          {" "}
-          Submit{" "}
+          Submit
         </button>
         <button
           className={`button ${index === questions.length - 1 ? "hidden" : ""}`}
           onClick={onNextClick}
         >
-          {" "}
-          Next{" "}
+          Next
         </button>
       </div>
     </>

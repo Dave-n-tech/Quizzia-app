@@ -1,4 +1,4 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../context/UserState";
 import { quizContext } from "../context/QuizState";
@@ -8,6 +8,8 @@ import "./pageStyles/resultpage.css";
 export default function ResultPage() {
   const { user } = useContext(userContext);
   const { questions } = useContext(quizContext);
+
+  const navigate = useNavigate()
 
   return (
     <main className="container">
@@ -22,7 +24,7 @@ export default function ResultPage() {
         </div>
         <div className="buttons">
           <button className="button">Restart</button>
-          <button className="button">View Answers</button>
+          <button className="button" onClick={() => navigate("/answers")}>View Answers</button>
         </div>
       </section>
     </main>

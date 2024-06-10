@@ -1,0 +1,17 @@
+
+.answers-container{
+    min-width: 300px;
+    max-width: 70%;
+    margin: 10px auto;
+}
+
+.answers-container h2{
+    color: var(--purple);
+    font-size: 20px;
+    font-weight: 900;
+    margin: 10px 0;
+}
+
+.answers{
+    padding: 5px;
+}

@@ -55,7 +55,6 @@ export default function UserInfoPage() {
     getQuestions(selectedCategory, selectedDifficulty);
   };
 
-  //user.name ? user.name : localStorage.getItem("username")
 
   return (
     <main className="quiz-info-container">

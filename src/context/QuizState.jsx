@@ -2,10 +2,24 @@ import { createContext, useEffect, useState } from "react";
 
 export const quizContext = createContext();
 
+export const parseString = (string) => {
+  // Decode the question text
+  const parser = new DOMParser();
+  const decodedString = parser.parseFromString(
+    `<!doctype html><body>${string}`,
+    "text/html"
+  ).body.textContent;
+
+  return decodedString
+}
+
 export const QuizProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
   const [error, setError] = useState(null);
+
+
 
   useEffect(() => {
     const savedQuestions = localStorage.getItem("questions")
@@ -15,6 +29,7 @@ export const QuizProvider = ({ children }) => {
       setQuestions(JSON.parse(savedQuestions));
     }
   }, [])
+  
 
   const getQuestions = async (category, difficulty) => {
     setLoading(true);
@@ -38,5 +53,5 @@ export const QuizProvider = ({ children }) => {
     }
   };
 
-  return <quizContext.Provider value={{getQuestions, questions, setQuestions, loading, error}}>{children}</quizContext.Provider>;
+  return <quizContext.Provider value={{userAnswers, setUserAnswers, getQuestions, questions, setQuestions, loading, error}}>{children}</quizContext.Provider>;
 };
