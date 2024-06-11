@@ -17,7 +17,7 @@ export default function AnswersPage() {
             return <AnswerComponent key={index} question={question} index={index}/>
           })}
         </div>
-        <button className="button" onClick={() => navigate("/result")}>Back</button>
+        <button className="button back-btn" onClick={() => navigate("/result")}>Back</button>
       </section>
     </main>
   );

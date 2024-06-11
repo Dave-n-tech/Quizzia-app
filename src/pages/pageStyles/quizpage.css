@@ -24,6 +24,11 @@
     font-size: 20px;
 }
 
+/* .option:active, input:checked{
+    background-color: #954fc3;
+    color: white;
+} */
+
 .options{
     display: flex;
     flex-direction: column;
@@ -64,4 +69,19 @@
 .selected{
     background-color: #954fc3;
     color: black;
+}
+
+.center{
+    text-align: center;
+    margin: 0 auto;
+    font-size: 20px;
+    font-family: "Inter";
+}
+
+.error{
+    width: 300px;
+    max-height: 100px;
+    background-color: rgb(255, 161, 161);
+    color: red;
+    padding: 10px;
 }

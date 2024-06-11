@@ -9,6 +9,8 @@ export default function UserInfoPage() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const { user, saveUserName } = useContext(userContext);
@@ -20,12 +22,22 @@ export default function UserInfoPage() {
 
   useEffect(() => {
     const fetchCategory = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const data = await fetch(baseUrl);
-        const response = await data.json();
-        setCategories(response.trivia_categories);
+        const response = await fetch(baseUrl);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch! please try again");
+        }
+
+        const data = await response.json();
+        setCategories(data.trivia_categories);
       } catch (error) {
+        setError(error);
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -51,10 +63,9 @@ export default function UserInfoPage() {
     console.log(
       `category: ${selectedCategory}, difficulty: ${selectedDifficulty}`
     );
-    navigate(`/quiz/${selectedCategory}/${selectedDifficulty}/`);
     getQuestions(selectedCategory, selectedDifficulty);
+    navigate(`/quiz/${selectedCategory}/${selectedDifficulty}/`);
   };
-
 
   return (
     <main className="quiz-info-container">
@@ -68,7 +79,6 @@ export default function UserInfoPage() {
             onChange={handleInputName}
             required
           />
-          
         </form>
         <div className="difficulty-input">
           <h1>Select Difficulty</h1>
@@ -94,21 +104,26 @@ export default function UserInfoPage() {
       <section className="category-section">
         <h1>Select Category</h1>
         <div className="categories">
-          {categories.map((category) => {
-            return (
-              <button
-                className={`category-btn button ${
-                  selectedCategory === category.id ? "btn-active" : ""
-                }`}
-                key={category.id}
-                onClick={() => {
-                  selectCategory(category.id);
-                }}
-              >
-                {category.name}
-              </button>
-            );
-          })}
+          {loading ? (
+            <p className="center">Loading categories...</p>
+          ) : (
+            categories.map((category) => {
+              return (
+                <button
+                  className={`category-btn button ${
+                    selectedCategory === category.id ? "btn-active" : ""
+                  }`}
+                  key={category.id}
+                  onClick={() => {
+                    selectCategory(category.id);
+                  }}
+                >
+                  {category.name}
+                </button>
+              );
+            })
+          )}
+          {error && <p className="center error">{error.message}</p>}
         </div>
 
         <div className="start">

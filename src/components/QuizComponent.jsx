@@ -57,13 +57,6 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
     }
   }, [questions, index]);
 
-  // const handleOptionClick = (option) => {
-  //   const newUserAnswers = [...userAnswers];
-  //   newUserAnswers[index] = option;
-  //   setUserAnswers(newUserAnswers);
-  //   console.log("selected answer:", newUserAnswers);
-  // };
-
   const handleOptionChange = (e) => {
     const newUserAnswers = [...userAnswers];
     newUserAnswers[index] = e.target.value;
@@ -87,14 +80,6 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
     localStorage.setItem("user-answers", JSON.stringify(userAnswers))
     navigate("/result");
   };
-
-  // console.log(userAnswers);
-  // console.log(options);
-
-  // className={`option white ${
-  //   userAnswers[index] === option ? `selected` : ""
-  // }`}
-  // onClick={() => handleOptionClick(option)}
 
   return (
     <>

@@ -24,14 +24,15 @@ export default function QuizPage() {
     }
   }
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="center">Loading...</div>;
+  if (error) return <div className="center error">Error: {error.message}</div>;
 
   return (
     <main className="container">
       <section className="question-container">
         <h2>Category: {questionGroup?.category}</h2>
-        <h2>Question {index + 1}</h2>
+        <h2>Difficulty: {questionGroup?.difficulty}</h2>
+        <h2>Question {index + 1} / {questions.length}</h2>
         <QuizComponent
           questions={questions}
           index={index}

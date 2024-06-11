@@ -10,8 +10,8 @@ export const parseString = (string) => {
     "text/html"
   ).body.textContent;
 
-  return decodedString
-}
+  return decodedString;
+};
 
 export const QuizProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
@@ -19,17 +19,14 @@ export const QuizProvider = ({ children }) => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [error, setError] = useState(null);
 
-
-
   useEffect(() => {
-    const savedQuestions = localStorage.getItem("questions")
-    console.log(JSON.parse(savedQuestions))
+    const savedQuestions = localStorage.getItem("questions");
+    console.log(JSON.parse(savedQuestions));
 
-    if(savedQuestions){
+    if (savedQuestions) {
       setQuestions(JSON.parse(savedQuestions));
     }
-  }, [])
-  
+  }, []);
 
   const getQuestions = async (category, difficulty) => {
     setLoading(true);
@@ -38,20 +35,42 @@ export const QuizProvider = ({ children }) => {
       const response = await fetch(
         `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
       );
-      if (!response.ok) {
-        throw new Error('Failed to fetch');
-      }
-      const data = await response.json();
-      setQuestions(data.results)
-      localStorage.setItem("questions", JSON.stringify(data.results))
 
+      if (!response.ok) {
+        throw new Error("Failed to fetch! please try again");
+      }
+
+      const data = await response.json();
+      setQuestions(data.results);
+
+      if (data.response_code === 1) {
+        throw new Error(
+          "Questions are unavailable! please try another category"
+        );
+      }
+
+      localStorage.setItem("questions", JSON.stringify(data.results));
     } catch (error) {
       setError(error);
       console.error(error);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
 
-  return <quizContext.Provider value={{userAnswers, setUserAnswers, getQuestions, questions, setQuestions, loading, error}}>{children}</quizContext.Provider>;
+  return (
+    <quizContext.Provider
+      value={{
+        userAnswers,
+        setUserAnswers,
+        getQuestions,
+        questions,
+        setQuestions,
+        loading,
+        error,
+      }}
+    >
+      {children}
+    </quizContext.Provider>
+  );
 };
