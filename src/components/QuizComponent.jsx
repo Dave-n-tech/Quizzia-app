@@ -49,10 +49,7 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
         ];
 
         setOptions(shuffle(allOptions));
-        console.log(
-          currentQuestionObject.question,
-          `answer: ${currentQuestionObject.correct_answer}`
-        );
+
       }
     }
   }, [questions, index]);
@@ -61,7 +58,6 @@ const QuizComponent = ({ questions, index, onNextClick, onPrevClick }) => {
     const newUserAnswers = [...userAnswers];
     newUserAnswers[index] = e.target.value;
     setUserAnswers(newUserAnswers);
-    console.log("selected answer:", newUserAnswers);
   };
 
   const calculateScore = () => {

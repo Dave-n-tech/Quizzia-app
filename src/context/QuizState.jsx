@@ -21,7 +21,6 @@ export const QuizProvider = ({ children }) => {
 
   useEffect(() => {
     const savedQuestions = localStorage.getItem("questions");
-    console.log(JSON.parse(savedQuestions));
 
     if (savedQuestions) {
       setQuestions(JSON.parse(savedQuestions));

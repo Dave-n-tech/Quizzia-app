@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useState } from "react"
 
 export const userContext = createContext()
 
@@ -8,10 +8,6 @@ export const UserProvider = ({children}) => {
         name: '',
         score: 0
     })
-
-    // useEffect(() => {
-    //     localStorage.setItem("user-data", JSON.stringify(user))
-    // },[user])
 
     const saveUserName = (userName) => {
         let username = userName.charAt(0).toUpperCase() + userName.slice(1)

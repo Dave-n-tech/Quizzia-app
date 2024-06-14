@@ -60,9 +60,6 @@ export default function UserInfoPage() {
 
   const startQuiz = (e) => {
     e.preventDefault();
-    console.log(
-      `category: ${selectedCategory}, difficulty: ${selectedDifficulty}`
-    );
     getQuestions(selectedCategory, selectedDifficulty);
     navigate(`/quiz/${selectedCategory}/${selectedDifficulty}/`);
   };

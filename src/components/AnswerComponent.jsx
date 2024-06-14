@@ -8,7 +8,7 @@ export default function AnswerComponent({ question, index }) {
   const { userAnswers } = useContext(quizContext);
 
   const answers = userAnswers.length === 0 ? JSON.parse(localStorage.getItem("user-answers")) : userAnswers;
-  console.log(answers);
+  
 
   let allOptions = shuffle([
     ...question.incorrect_answers,
