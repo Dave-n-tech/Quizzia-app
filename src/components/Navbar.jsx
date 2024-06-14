@@ -8,7 +8,8 @@ export default function Navbar() {
   const navigate = useNavigate()
   return (
     <header>
-        <img src={logo} alt="" className='logo' onClick={() => navigate("/")}/>
+        <h1 className='logo' onClick={() => navigate("/")}>QUIZZIA</h1>
+        {/* <img src={logo} alt="" className='logo' onClick={() => navigate("/")}/> */}
     </header>
   )
 }

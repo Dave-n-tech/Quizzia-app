@@ -111,3 +111,7 @@
 .inactive{
     opacity: 0.5;
 }
+
+.hello-user{
+    font-size: 40px;
+}

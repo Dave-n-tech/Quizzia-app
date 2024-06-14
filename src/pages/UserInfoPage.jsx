@@ -69,7 +69,7 @@ export default function UserInfoPage() {
 
   return (
     <main className="quiz-info-container">
-      <h1>Hello {user.name}</h1>
+      <h1 className="hello-user">Hello {user.name}</h1>
       <section className="name-section">
         <form className="name-input">
           <h1>What's your name?</h1>
