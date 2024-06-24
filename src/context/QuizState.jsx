@@ -19,6 +19,12 @@ export const QuizProvider = ({ children }) => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [error, setError] = useState(null);
 
+  const questionNumber = {
+    easy: 10,
+    medium: 20,
+    hard: 30
+  }
+
   useEffect(() => {
     const savedQuestions = localStorage.getItem("questions");
 
@@ -32,7 +38,7 @@ export const QuizProvider = ({ children }) => {
     setError(null);
     try {
       const response = await fetch(
-        `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`
+        `https://opentdb.com/api.php?amount=${questionNumber[difficulty]}&category=${category}&difficulty=${difficulty}&type=multiple`
       );
 
       if (!response.ok) {
