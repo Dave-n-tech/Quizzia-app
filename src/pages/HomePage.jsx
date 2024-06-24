@@ -1,6 +1,7 @@
 import heroImage from "../assets/hero image.png";
 import PlayButton from "../components/PlayButton";
 import "./pageStyles/homepage.css";
+import backgroundImage from "../assets/hero-background.jpg"
 
 export default function Homepage() {
   return (

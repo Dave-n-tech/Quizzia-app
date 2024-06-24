@@ -44,8 +44,8 @@ export default function UserInfoPage() {
     fetchCategory();
   }, []);
 
-  const selectCategory = (id) => {
-    setSelectedCategory(id);
+  const selectCategory = (e) => {
+    setSelectedCategory(e.target.value);
   };
 
   const selectDifficulty = (difficulty) => {
@@ -100,28 +100,25 @@ export default function UserInfoPage() {
 
       <section className="category-section">
         <h1>Select Category</h1>
-        <div className="categories">
-          {loading ? (
-            <p className="center">Loading categories...</p>
-          ) : (
-            categories.map((category) => {
-              return (
-                <button
-                  className={`category-btn button ${
-                    selectedCategory === category.id ? "btn-active" : ""
-                  }`}
-                  key={category.id}
-                  onClick={() => {
-                    selectCategory(category.id);
-                  }}
-                >
+        {loading ? (
+          <p className="center">Loading categories...</p>
+        ) : (
+          <div className="categories">
+            <select
+              className="category-select"
+              value={selectedCategory}
+              onChange={selectCategory}
+            >
+              <option value="" disabled>Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
                   {category.name}
-                </button>
-              );
-            })
-          )}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
           {error && <p className="center error">{error.message}</p>}
-        </div>
 
         <div className="start">
           <button

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { quizContext } from "../context/QuizState";
 import "./pageStyles/quizpage.css";
 import QuizComponent from "../components/QuizComponent";
+import { parseString } from "../context/QuizState";
 
 export default function QuizPage() {
   const { questions, getQuestions, loading, error } = useContext(quizContext);
@@ -30,7 +31,7 @@ export default function QuizPage() {
   return (
     <main className="container">
       <section className="question-container">
-        <h2>Category: {questionGroup?.category}</h2>
+        <h2>Category: {parseString(questionGroup?.category)}</h2>
         <h2>Difficulty: {questionGroup?.difficulty}</h2>
         <h2>Question {index + 1} / {questions.length}</h2>
         <QuizComponent
